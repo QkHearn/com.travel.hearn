@@ -6,10 +6,11 @@
   <title>照片画廊 | Hearn & 瑾怡</title>
   <meta name="description" content="Hearn 和 瑾怡的旅行照片">
   
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" rel="stylesheet">
   
   <!-- Styles -->
   <link rel="stylesheet" href="css/base.css">
@@ -17,7 +18,7 @@
   <link rel="stylesheet" href="css/gallery.css">
 </head>
 <body>
-  <canvas id="starry-canvas"></canvas>
+  <canvas id="sky-canvas"></canvas>
   
   <nav class="main-nav">
     <div class="nav-container">
@@ -51,6 +52,12 @@
           <label class="filter-label">地点</label>
           <select class="filter-select" id="filter-dest">
             <option value="">全部地点</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">省份</label>
+          <select class="filter-select" id="filter-province">
+            <option value="">全部省份</option>
           </select>
         </div>
         <div class="filter-group">

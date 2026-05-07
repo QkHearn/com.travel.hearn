@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>编辑旅行记录 | Hearn & 瑾怡</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <canvas id="sky-canvas"></canvas>
+  
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Hearn <span>&</span> 瑾怡</a>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="map.html">地图</a>
+        <a href="gallery.html">相册</a>
+        <a href="stories.html">故事</a>
+        <a href="about.html">关于</a>
+        <a href="admin.html" class="active">编辑</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content admin-page">
+    <div class="container">
+      <div class="admin-header">
+        <h1 class="admin-title">记录新的<span>旅行</span></h1>
+        <p class="admin-subtitle">5分钟完成一个地点的记录</p>
+      </div>
+
+      <!-- 步骤指示器 -->
+      <div class="step-indicator" id="step-indicator">
+        <div class="step-item active" data-step="1">
+          <div class="step-number">1</div>
+          <span>配置</span>
+        </div>
+        <div class="step-item" data-step="2">
+          <div class="step-number">2</div>
+          <span>选点</span>
+        </div>
+        <div class="step-item" data-step="3">
+          <div class="step-number">3</div>
+          <span>信息</span>
+        </div>
+        <div class="step-item" data-step="4">
+          <div class="step-number">4</div>
+          <span>照片</span>
+        </div>
+        <div class="step-item" data-step="5">
+          <div class="step-number">5</div>
+          <span>故事</span>
+        </div>
+        <div class="step-item" data-step="6">
+          <div class="step-number">6</div>
+          <span>提交</span>
+        </div>
+      </div>
+
+      <!-- 步骤 1: GitHub 配置 -->
+      <div class="admin-step" id="step-1">
+        <div class="glass-panel">
+          <h2 class="step-title">GitHub 配置</h2>
+          <p class="step-desc">我们需要你的 GitHub Token 来提交数据。Token 只保存在你的浏览器中。</p>
+          
+          <div class="form-group">
+            <label class="form-label">GitHub Token</label>
+            <input type="password" class="form-input" id="github-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+            <p class="form-hint">在 GitHub Settings → Developer settings → Personal access tokens → Fine-grained tokens 中生成</p>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">仓库地址</label>
+            <input type="text" class="form-input" id="github-repo" placeholder="username/repo-name" value="">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">分支</label>
+            <input type="text" class="form-input" id="github-branch" value="main">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Kimi API Key（可选，用于AI写故事）</label>
+            <input type="password" class="form-input" id="kimi-api-key" placeholder="sk-xxxxxxxx">
+            <p class="form-hint">在 <a href="https://platform.moonshot.cn" target="_blank">platform.moonshot.cn</a> 获取</p>
+          </div>
+          
+          <div class="step-actions">
+            <button class="btn btn-blue" id="btn-test-connection">测试连接</button>
+            <button class="btn btn-primary" id="btn-step1-next" disabled>下一步</button>
+          </div>
+          
+          <div class="connection-status" id="connection-status"></div>
+        </div>
+      </div>
+
+      <!-- 步骤 2: 地图选点 -->
+      <div class="admin-step hidden" id="step-2">
+        <div class="glass-panel">
+          <h2 class="step-title">在地图上选择地点</h2>
+          <p class="step-desc">点击地图获取坐标，或直接搜索地名</p>
+          
+          <div class="map-search">
+            <input type="text" class="form-input" id="location-search" placeholder="搜索地点，如：成都锦里">
+            <button class="btn btn-blue" id="btn-search">搜索</button>
+          </div>
+          
+          <div class="admin-map" id="admin-map"></div>
+          
+          <div class="coordinates-display">
+            <span>纬度: <strong id="coord-lat">--</strong></span>
+            <span>经度: <strong id="coord-lng">--</strong></span>
+            <span>省份: <strong id="coord-province">--</strong></span>
+            <span>城市: <strong id="coord-city">--</strong></span>
+          </div>
+          
+          <div class="step-actions">
+            <button class="btn btn-ghost" id="btn-step2-prev">上一步</button>
+            <button class="btn btn-primary" id="btn-step2-next" disabled>下一步</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 步骤 3: 基本信息 -->
+      <div class="admin-step hidden" id="step-3">
+        <div class="glass-panel">
+          <h2 class="step-title">填写基本信息</h2>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">地点名称 *</label>
+              <input type="text" class="form-input" id="input-name" placeholder="如：锦里古街">
+            </div>
+            <div class="form-group">
+              <label class="form-label">国家</label>
+              <input type="text" class="form-input" id="input-country" value="中国">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">省份</label>
+              <input type="text" class="form-input" id="input-province" placeholder="自动填充">
+            </div>
+            <div class="form-group">
+              <label class="form-label">城市</label>
+              <input type="text" class="form-input" id="input-city" placeholder="自动填充">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">开始日期 *</label>
+              <input type="date" class="form-input" id="input-date">
+            </div>
+            <div class="form-group">
+              <label class="form-label">结束日期</label>
+              <input type="date" class="form-input" id="input-end-date">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">标签（用逗号分隔）</label>
+            <input type="text" class="form-input" id="input-tags" placeholder="如：古街, 美食, 文化, 夜景">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">一句话总结 *</label>
+            <input type="text" class="form-input" id="input-summary" placeholder="用一句话描述这个地方">
+          </div>
+          
+          <div class="step-actions">
+            <button class="btn btn-ghost" id="btn-step3-prev">上一步</button>
+            <button class="btn btn-primary" id="btn-step3-next">下一步</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 步骤 4: 上传照片 -->
+      <div class="admin-step hidden" id="step-4">
+        <div class="glass-panel">
+          <h2 class="step-title">上传照片</h2>
+          <p class="step-desc">拖拽或点击上传，第一张自动设为封面</p>
+          
+          <div class="upload-zone" id="upload-zone">
+            <div class="upload-zone-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+            </div>
+            <div class="upload-zone-text">点击或拖拽照片到此处</div>
+            <div class="upload-zone-hint">支持 JPG、PNG、WebP，单张不超过 10MB</div>
+            <input type="file" class="hidden" id="photo-input" multiple accept="image/*">
+          </div>
+          
+          <div class="photo-preview-grid" id="photo-preview"></div>
+          
+          <div class="step-actions">
+            <button class="btn btn-ghost" id="btn-step4-prev">上一步</button>
+            <button class="btn btn-primary" id="btn-step4-next">下一步</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 步骤 5: AI 写故事 -->
+      <div class="admin-step hidden" id="step-5">
+        <div class="glass-panel">
+          <h2 class="step-title">写旅行故事</h2>
+          <p class="step-desc">手动撰写，或使用 AI 根据照片生成</p>
+          
+          <div class="ai-section">
+            <button class="btn btn-blue" id="btn-ai-generate" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              AI 根据照片生成故事
+            </button>
+            <div class="ai-loading hidden" id="ai-loading">
+              <div class="ai-spinner"></div>
+              <span>AI 正在创作中...</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">旅行故事</label>
+            <textarea class="form-textarea" id="input-story" rows="8" placeholder="写下你的旅行故事..."></textarea>
+          </div>
+          
+          <div class="step-actions">
+            <button class="btn btn-ghost" id="btn-step5-prev">上一步</button>
+            <button class="btn btn-primary" id="btn-step5-next">下一步</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 步骤 6: 预览与提交 -->
+      <div class="admin-step hidden" id="step-6">
+        <div class="glass-panel">
+          <h2 class="step-title">预览并提交</h2>
+          
+          <div class="preview-card" id="preview-card">
+            <div class="preview-header">
+              <div class="preview-title" id="preview-name">--</div>
+              <div class="preview-location" id="preview-location">--</div>
+            </div>
+            <div class="preview-date" id="preview-date">--</div>
+            <div class="preview-summary" id="preview-summary">--</div>
+            <div class="preview-tags" id="preview-tags"></div>
+            <div class="preview-photos" id="preview-photos"></div>
+          </div>
+          
+          <div class="submit-progress hidden" id="submit-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text" id="progress-text">准备提交...</div>
+          </div>
+          
+          <div class="step-actions">
+            <button class="btn btn-ghost" id="btn-step6-prev">上一步</button>
+            <button class="btn btn-primary" id="btn-submit">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              提交到 GitHub
+            </button>
+          </div>
+          
+          <div class="submit-result" id="submit-result"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Hearn & 瑾怡</div>
+        <p class="footer-text">用脚步丈量世界，用镜头记录美好</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/github-api.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

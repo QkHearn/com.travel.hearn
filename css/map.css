@@ -1,29 +1,41 @@
 /* ============================================
-   地图页样式
+   地图页样式 - 清新自然风格
    ============================================ */
 
 .map-page {
-  padding-top: 60px;
+  padding-top: 70px;
 }
 
 /* ---- 头部 ---- */
 .map-header {
   padding: var(--space-lg) var(--space-md);
   text-align: center;
-  background: linear-gradient(180deg, rgba(18, 24, 58, 0.5), transparent);
 }
 
 .map-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-dark);
   margin-bottom: var(--space-sm);
 }
 
 .map-title span {
-  color: var(--van-gogh-gold);
-  font-style: italic;
+  color: var(--grass-green);
+  position: relative;
+}
+
+.map-title span::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: -4px;
+  right: -4px;
+  height: 8px;
+  background: linear-gradient(90deg, var(--sunshine-gold), var(--sakura-pink));
+  opacity: 0.3;
+  border-radius: 4px;
+  z-index: -1;
 }
 
 .map-subtitle {
@@ -34,33 +46,86 @@
 
 .map-stats {
   font-family: var(--font-ui);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
+  font-weight: 600;
 }
 
 .map-stats strong {
-  color: var(--van-gogh-gold);
-  font-size: 1.2rem;
+  color: var(--grass-green);
+  font-size: 1.3rem;
+}
+
+/* ---- 聚合统计面板 ---- */
+.aggregate-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-bottom: var(--space-md);
+  padding: 0 var(--space-md);
+}
+
+.aggregate-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(10px);
+}
+
+.aggregate-badge:hover {
+  background: linear-gradient(135deg, var(--grass-green), var(--ocean-blue));
+  color: var(--text-white);
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
+}
+
+.aggregate-badge .count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  background: var(--grass-green);
+  color: var(--text-white);
+  border-radius: 50%;
+  font-size: 0.75rem;
 }
 
 /* ---- 地图容器 ---- */
 .map-container {
   display: flex;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 250px);
   min-height: 500px;
   position: relative;
+  margin: 0 var(--space-md);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-medium);
 }
 
 /* ---- 侧边栏 ---- */
 .map-sidebar {
   width: 320px;
   flex-shrink: 0;
-  background: var(--starry-night);
+  background: rgba(255, 255, 255, 0.85);
   border-right: 1px solid var(--glass-border);
   display: flex;
   flex-direction: column;
   transition: transform var(--transition-normal);
   z-index: 10;
+  backdrop-filter: blur(16px);
 }
 
 .map-sidebar.collapsed {
@@ -80,24 +145,27 @@
 .sidebar-header h2 {
   font-family: var(--font-display);
   font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-white);
+  font-weight: 700;
+  color: var(--text-dark);
 }
 
 .sidebar-toggle {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   color: var(--text-gray);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   transition: all var(--transition-fast);
 }
 
 .sidebar-toggle:hover {
-  background: var(--glass-bg);
+  background: var(--grass-green);
   color: var(--text-white);
+  border-color: transparent;
 }
 
 .sidebar-filters {
@@ -113,6 +181,8 @@
 
 .sidebar-filters .filter-select {
   width: 100%;
+  font-size: 0.85rem;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
 }
 
 .sidebar-list {
@@ -133,25 +203,26 @@
 
 .sidebar-item:hover,
 .sidebar-item.active {
-  background: var(--glass-bg);
+  background: var(--sky-blue);
 }
 
 .sidebar-item.active {
-  border: 1px solid var(--glass-border);
+  border: 2px solid var(--grass-green);
 }
 
 .sidebar-item-thumb {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, var(--starry-night-light), var(--iris-purple));
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 1.2rem;
-  color: var(--van-gogh-gold);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-white);
+  box-shadow: var(--shadow-soft);
 }
 
 .sidebar-item-info {
@@ -162,19 +233,20 @@
 .sidebar-item-name {
   font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-white);
+  font-weight: 700;
+  color: var(--text-dark);
   margin-bottom: 0.2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.sidebar-item-country {
+.sidebar-item-city {
   font-family: var(--font-ui);
   font-size: 0.8rem;
-  color: var(--van-gogh-gold);
-  margin-bottom: 0.2rem;
+  font-weight: 600;
+  color: var(--grass-green);
+  margin-bottom: 0.15rem;
 }
 
 .sidebar-item-date {
@@ -186,42 +258,48 @@
 /* ---- 地图区域 ---- */
 .map-wrapper {
   flex: 1;
-  background: var(--starry-night-dark);
+  background: var(--sky-blue);
 }
 
-/* Leaflet 暗色主题覆盖 */
 .leaflet-container {
-  background: var(--starry-night-dark);
+  background: var(--sky-blue);
 }
 
 /* 自定义标记 */
 .custom-marker {
-  background: var(--van-gogh-gold);
+  background: linear-gradient(135deg, var(--grass-green), var(--ocean-blue));
   border: 3px solid var(--text-white);
   border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  box-shadow: 0 0 0 4px rgba(212, 160, 23, 0.3);
-  transition: all var(--transition-fast);
+  width: 18px;
+  height: 18px;
+  box-shadow: 0 0 0 5px rgba(124, 179, 66, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all var(--transition-bounce);
+  animation: markerPop 0.6s ease-out;
+}
+
+@keyframes markerPop {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
 .custom-marker:hover {
-  transform: scale(1.3);
-  box-shadow: 0 0 0 8px rgba(212, 160, 23, 0.2);
+  transform: scale(1.4);
+  box-shadow: 0 0 0 8px rgba(124, 179, 66, 0.2), 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* 自定义弹窗 */
 .leaflet-popup-content-wrapper {
-  background: var(--starry-night);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  color: var(--text-white);
-  backdrop-filter: blur(12px);
+  color: var(--text-dark);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-medium);
 }
 
 .leaflet-popup-tip {
-  background: var(--starry-night);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .leaflet-popup-content {
@@ -231,31 +309,38 @@
 }
 
 .popup-card {
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .popup-image {
   width: 100%;
   height: 120px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   margin-bottom: var(--space-sm);
-  background: linear-gradient(135deg, var(--starry-night-light), var(--iris-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-white);
+  box-shadow: var(--shadow-soft);
 }
 
 .popup-title {
   font-family: var(--font-display);
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.25rem;
-  color: var(--text-white);
+  color: var(--text-dark);
 }
 
-.popup-country {
+.popup-city {
   font-family: var(--font-ui);
   font-size: 0.8rem;
-  color: var(--van-gogh-gold);
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--grass-green);
+  margin-bottom: 0.4rem;
 }
 
 .popup-date {
@@ -275,30 +360,45 @@
   display: inline-block;
   font-family: var(--font-ui);
   font-size: 0.85rem;
-  color: var(--van-gogh-gold);
-  font-weight: 500;
-  transition: color var(--transition-fast);
+  font-weight: 700;
+  color: var(--grass-green);
+  transition: all var(--transition-fast);
 }
 
 .popup-link:hover {
-  color: var(--van-gogh-gold-light);
+  color: var(--ocean-blue-dark);
+  transform: translateX(4px);
 }
 
 /* 聚类标记 */
 .marker-cluster-small,
 .marker-cluster-medium,
 .marker-cluster-large {
-  background: rgba(212, 160, 23, 0.3);
-  border: 2px solid var(--van-gogh-gold);
+  background: rgba(124, 179, 66, 0.25);
+  border: 2px solid var(--grass-green);
 }
 
 .marker-cluster-small div,
 .marker-cluster-medium div,
 .marker-cluster-large div {
-  background: var(--van-gogh-gold);
-  color: var(--starry-night-dark);
+  background: linear-gradient(135deg, var(--grass-green), var(--ocean-blue));
+  color: var(--text-white);
   font-family: var(--font-ui);
-  font-weight: 600;
+  font-weight: 700;
+}
+
+/* 连线样式 */
+.travel-path {
+  stroke: var(--ocean-blue);
+  stroke-width: 2;
+  stroke-dasharray: 8, 4;
+  fill: none;
+  opacity: 0.5;
+  animation: dashFlow 2s linear infinite;
+}
+
+@keyframes dashFlow {
+  to { stroke-dashoffset: -24; }
 }
 
 /* 移动端侧边栏切换按钮 */
@@ -308,15 +408,15 @@
   left: var(--space-sm);
   top: var(--space-sm);
   z-index: 1000;
-  width: 40px;
-  height: 40px;
-  background: var(--starry-night);
+  width: 44px;
+  height: 44px;
+  background: var(--text-white);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-sm);
-  color: var(--van-gogh-gold);
+  border-radius: var(--radius-full);
+  color: var(--grass-green);
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-medium);
 }
 
 /* ---- 响应式 ---- */
@@ -324,12 +424,13 @@
   .map-container {
     flex-direction: column;
     height: auto;
-    min-height: calc(100vh - 180px);
+    min-height: calc(100vh - 200px);
+    margin: 0 var(--space-sm);
   }
   
   .map-sidebar {
     width: 100%;
-    max-height: 300px;
+    max-height: 280px;
     border-right: none;
     border-bottom: 1px solid var(--glass-border);
   }
@@ -340,5 +441,9 @@
   
   .sidebar-mobile-toggle {
     display: flex;
+  }
+  
+  .aggregate-panel {
+    padding: 0 var(--space-sm);
   }
 }

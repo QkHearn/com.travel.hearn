@@ -1,5 +1,5 @@
 /* ============================================
-   故事页样式
+   故事页样式 - 清新自然风格
    ============================================ */
 
 .stories-page {
@@ -17,13 +17,26 @@
   font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-dark);
   margin-bottom: var(--space-sm);
 }
 
 .stories-title span {
-  color: var(--van-gogh-gold);
-  font-style: italic;
+  color: var(--grass-green);
+  position: relative;
+}
+
+.stories-title span::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: -4px;
+  right: -4px;
+  height: 8px;
+  background: linear-gradient(90deg, var(--sunshine-gold), var(--sakura-pink));
+  opacity: 0.3;
+  border-radius: 4px;
+  z-index: -1;
 }
 
 .stories-subtitle {
@@ -42,27 +55,30 @@
 }
 
 .year-filter {
-  padding: 0.5rem 1.25rem;
+  padding: 0.6rem 1.5rem;
   font-family: var(--font-ui);
-  font-size: 0.9rem;
-  font-weight: 500;
-  border-radius: var(--radius-xl);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
   background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  border: 2px solid var(--glass-border);
   color: var(--text-gray);
   cursor: pointer;
   transition: all var(--transition-fast);
+  backdrop-filter: blur(10px);
 }
 
 .year-filter:hover {
-  border-color: var(--van-gogh-gold);
-  color: var(--text-white);
+  border-color: var(--grass-green);
+  color: var(--grass-green);
+  transform: translateY(-2px);
 }
 
 .year-filter.active {
-  background: var(--van-gogh-gold);
-  border-color: var(--van-gogh-gold);
-  color: var(--starry-night-dark);
+  background: linear-gradient(135deg, var(--grass-green), var(--ocean-blue));
+  border-color: transparent;
+  color: var(--text-white);
+  box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
 }
 
 /* ---- 时间线 ---- */
@@ -71,22 +87,23 @@
   padding: var(--space-lg) 0;
 }
 
-/* 时间线轴线 */
 .timeline::before {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 2px;
+  width: 3px;
   background: linear-gradient(
     to bottom,
     transparent,
-    var(--van-gogh-gold) 10%,
-    var(--van-gogh-gold) 90%,
+    var(--grass-green) 10%,
+    var(--ocean-blue) 50%,
+    var(--grass-green) 90%,
     transparent
   );
   transform: translateX(-50%);
+  border-radius: 3px;
 }
 
 /* 年份标题 */
@@ -99,15 +116,16 @@
 .timeline-year-label {
   display: inline-block;
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  color: var(--van-gogh-gold);
-  background: var(--starry-night);
-  padding: 0.5rem 1.5rem;
-  border: 2px solid var(--van-gogh-gold);
-  border-radius: var(--radius-xl);
+  color: var(--grass-green);
+  background: var(--cloud-white);
+  padding: 0.6rem 2rem;
+  border: 3px solid var(--grass-green);
+  border-radius: var(--radius-full);
   position: relative;
   z-index: 1;
+  box-shadow: var(--shadow-soft);
 }
 
 /* 故事卡片 */
@@ -125,25 +143,25 @@
   padding-left: calc(50% + var(--space-lg));
 }
 
-/* 时间线节点 */
 .timeline-item::before {
   content: '';
   position: absolute;
   top: 2rem;
   left: 50%;
-  width: 16px;
-  height: 16px;
-  background: var(--van-gogh-gold);
-  border: 3px solid var(--starry-night);
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, var(--grass-green), var(--ocean-blue));
+  border: 4px solid var(--cloud-white);
   border-radius: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  box-shadow: 0 0 0 4px rgba(212, 160, 23, 0.2);
+  box-shadow: 0 0 0 6px rgba(124, 179, 66, 0.15), var(--shadow-soft);
+  transition: all var(--transition-bounce);
 }
 
 .timeline-item:hover::before {
-  transform: translateX(-50%) scale(1.3);
-  box-shadow: 0 0 0 8px rgba(212, 160, 23, 0.15);
+  transform: translateX(-50%) scale(1.4);
+  box-shadow: 0 0 0 10px rgba(124, 179, 66, 0.1), 0 0 20px rgba(124, 179, 66, 0.3);
 }
 
 /* 故事卡片内容 */
@@ -154,26 +172,28 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
   transition: all var(--transition-normal);
   cursor: pointer;
 }
 
 .story-card:hover {
-  border-color: var(--van-gogh-gold);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-strong);
 }
 
 .story-card-image {
   width: 100%;
   height: 200px;
-  background: linear-gradient(135deg, var(--starry-night-light), var(--iris-purple));
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--van-gogh-gold);
   font-family: var(--font-display);
-  font-size: 3rem;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text-white);
+  box-shadow: inset 0 -4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .story-card-body {
@@ -183,30 +203,32 @@
 .story-card-date {
   font-family: var(--font-ui);
   font-size: 0.8rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--van-gogh-gold);
+  color: var(--grass-green);
   margin-bottom: 0.5rem;
 }
 
 .story-card-title {
   font-family: var(--font-display);
   font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text-white);
-  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.3rem;
 }
 
 .story-card-location {
   font-size: 0.9rem;
   color: var(--text-gray);
   margin-bottom: var(--space-sm);
+  font-weight: 600;
 }
 
 .story-card-excerpt {
   font-size: 0.95rem;
   color: var(--text-muted);
-  line-height: 1.7;
+  line-height: 1.8;
   margin-bottom: var(--space-sm);
 }
 
@@ -220,16 +242,17 @@
 .story-card-readmore {
   font-family: var(--font-ui);
   font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--van-gogh-gold);
+  font-weight: 700;
+  color: var(--grass-green);
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  transition: gap var(--transition-fast);
+  gap: 0.3rem;
+  transition: all var(--transition-fast);
 }
 
 .story-card:hover .story-card-readmore {
-  gap: 0.5rem;
+  gap: 0.6rem;
+  color: var(--ocean-blue-dark);
 }
 
 /* ---- 故事详情弹窗 ---- */
@@ -237,7 +260,8 @@
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background: rgba(5, 8, 20, 0.95);
+  background: rgba(232, 244, 253, 0.95);
+  backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -254,36 +278,46 @@
 }
 
 .story-modal-content {
-  background: var(--starry-night);
+  background: var(--cloud-white);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   max-width: 800px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+  box-shadow: var(--shadow-strong);
+  transform: scale(0.9);
+  transition: transform var(--transition-slow);
+}
+
+.story-modal.active .story-modal-content {
+  transform: scale(1);
 }
 
 .story-modal-close {
   position: absolute;
   top: var(--space-md);
   right: var(--space-md);
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  color: var(--text-white);
+  color: var(--text-dark);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
   transition: all var(--transition-fast);
+  box-shadow: var(--shadow-soft);
 }
 
 .story-modal-close:hover {
-  background: var(--van-gogh-gold);
-  color: var(--starry-night-dark);
+  background: linear-gradient(135deg, var(--grass-green), var(--ocean-blue));
+  color: var(--text-white);
+  border-color: transparent;
+  transform: rotate(90deg);
 }
 
 .story-modal-body {
@@ -298,42 +332,45 @@
 .story-modal-date {
   font-family: var(--font-ui);
   font-size: 0.85rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--van-gogh-gold);
+  color: var(--grass-green);
   margin-bottom: var(--space-sm);
 }
 
 .story-modal-title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-dark);
   margin-bottom: var(--space-xs);
 }
 
 .story-modal-location {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--text-gray);
+  font-weight: 600;
 }
 
 .story-modal-cover {
   width: 100%;
-  height: 300px;
-  background: linear-gradient(135deg, var(--starry-night-light), var(--iris-purple));
+  height: 280px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--van-gogh-gold);
   font-family: var(--font-display);
-  font-size: 4rem;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: var(--text-white);
+  box-shadow: inset 0 -4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .story-modal-text {
   padding: var(--space-lg);
   font-size: 1.1rem;
-  line-height: 2;
-  color: var(--text-gray);
+  line-height: 2.2;
+  color: var(--text-body);
 }
 
 .story-modal-text p {
@@ -349,12 +386,13 @@
 
 .story-modal-photo {
   aspect-ratio: 3/2;
-  background: linear-gradient(135deg, var(--starry-night-light), var(--starry-night));
+  background: linear-gradient(135deg, var(--sky-blue-dark), var(--sky-blue));
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
+  box-shadow: var(--shadow-soft);
 }
 
 .story-modal-footer {
@@ -371,10 +409,11 @@
 }
 
 .story-modal-nav button {
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   font-family: var(--font-ui);
-  font-size: 0.85rem;
-  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   color: var(--text-gray);
@@ -382,43 +421,40 @@
 }
 
 .story-modal-nav button:hover {
-  border-color: var(--van-gogh-gold);
+  background: linear-gradient(135deg, var(--grass-green), var(--ocean-blue));
   color: var(--text-white);
+  border-color: transparent;
+  transform: translateY(-2px);
 }
 
 /* ---- 响应式 ---- */
 @media (max-width: 768px) {
-  .stories-page {
-    padding-top: 70px;
-  }
+  .stories-page { padding-top: 70px; }
   
-  .timeline::before {
-    left: 20px;
-  }
+  .timeline::before { left: 24px; }
   
   .timeline-item,
   .timeline-item:nth-child(even) {
     justify-content: flex-start;
-    padding-left: 50px;
+    padding-left: 56px;
     padding-right: 0;
   }
   
   .timeline-item::before,
   .timeline-item:nth-child(even)::before {
-    left: 20px;
+    left: 24px;
     transform: translateX(-50%);
   }
   
-  .story-card {
-    max-width: 100%;
-  }
+  .story-card { max-width: 100%; }
   
-  .story-modal {
-    padding: 0;
-  }
-  
+  .story-modal { padding: 0; }
   .story-modal-content {
     max-height: 100vh;
     border-radius: 0;
+    transform: translateY(100%);
+  }
+  .story-modal.active .story-modal-content {
+    transform: translateY(0);
   }
 }

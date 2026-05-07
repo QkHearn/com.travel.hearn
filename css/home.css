@@ -1,5 +1,5 @@
 /* ============================================
-   首页专用样式
+   首页样式 - 清新自然风格
    ============================================ */
 
 /* ---- Hero 区域 ---- */
@@ -22,37 +22,49 @@
 .hero-label {
   font-family: var(--font-ui);
   font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
+  font-weight: 800;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--van-gogh-gold);
+  color: var(--grass-green);
   margin-bottom: var(--space-md);
   opacity: 0;
-  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  animation: fadeInDown 0.8s ease-out 0.2s forwards;
 }
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 10vw, 6rem);
+  font-size: clamp(3rem, 10vw, 6.5rem);
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: var(--space-md);
+  color: var(--text-dark);
   opacity: 0;
   animation: fadeInUp 0.8s ease-out 0.4s forwards;
 }
 
 .hero-name {
   display: inline-block;
+  position: relative;
+}
+
+.hero-name:first-child {
+  color: var(--ocean-blue-dark);
+}
+
+.hero-name:last-child {
+  color: var(--grass-green-dark);
 }
 
 .hero-ampersand {
   font-style: italic;
-  color: var(--van-gogh-gold);
-  margin: 0 0.2em;
+  color: var(--sunshine-gold-dark);
+  margin: 0 0.15em;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
 }
 
 .hero-subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   color: var(--text-gray);
   margin-bottom: var(--space-lg);
   opacity: 0;
@@ -85,24 +97,26 @@
 .hero-scroll span {
   font-family: var(--font-ui);
   font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
 .scroll-indicator {
-  width: 24px;
-  height: 40px;
-  border: 2px solid var(--glass-border);
-  border-radius: 12px;
+  width: 26px;
+  height: 42px;
+  border: 2.5px solid var(--grass-green);
+  border-radius: 13px;
   position: relative;
   overflow: hidden;
+  opacity: 0.5;
 }
 
 .scroll-dot {
-  width: 4px;
-  height: 4px;
-  background: var(--van-gogh-gold);
+  width: 5px;
+  height: 5px;
+  background: linear-gradient(135deg, var(--grass-green), var(--ocean-blue));
   border-radius: 50%;
   position: absolute;
   top: 8px;
@@ -112,27 +126,20 @@
 }
 
 @keyframes scrollBounce {
-  0%, 100% {
-    top: 8px;
-    opacity: 1;
-  }
-  50% {
-    top: 24px;
-    opacity: 0.3;
-  }
+  0%, 100% { top: 8px; opacity: 1; }
+  50% { top: 26px; opacity: 0.3; }
 }
 
 /* ---- 统计区域 ---- */
 .stats-section {
   padding: var(--space-xl) 0;
-  background: linear-gradient(180deg, transparent, rgba(18, 24, 58, 0.5), transparent);
 }
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--space-md);
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -144,32 +151,59 @@
   border-radius: var(--radius-lg);
   backdrop-filter: blur(10px);
   transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--grass-green), var(--ocean-blue), var(--sunshine-gold));
+  opacity: 0;
+  transition: opacity var(--transition-fast);
 }
 
 .stat-card:hover {
-  border-color: var(--van-gogh-gold);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(212, 160, 23, 0.1);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-medium);
+}
+
+.stat-card:hover::before {
+  opacity: 1;
 }
 
 .stat-icon {
-  color: var(--van-gogh-gold);
+  color: var(--grass-green);
   margin-bottom: var(--space-sm);
   opacity: 0.8;
+  transition: transform var(--transition-bounce);
+}
+
+.stat-card:hover .stat-icon {
+  transform: rotate(10deg) scale(1.1);
 }
 
 .stat-number {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-dark);
   line-height: 1;
   margin-bottom: var(--space-xs);
+  background: linear-gradient(135deg, var(--grass-green), var(--ocean-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .stat-label {
   font-family: var(--font-ui);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-gray);
@@ -193,6 +227,13 @@
   overflow: hidden;
   aspect-ratio: 3/4;
   cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-normal);
+}
+
+.latest-card:hover {
+  transform: translateY(-8px) rotateX(2deg);
+  box-shadow: var(--shadow-strong);
 }
 
 .latest-card-image {
@@ -211,8 +252,8 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(5, 8, 20, 0.95) 0%,
-    rgba(5, 8, 20, 0.5) 40%,
+    rgba(44, 62, 80, 0.9) 0%,
+    rgba(44, 62, 80, 0.4) 40%,
     transparent 70%
   );
   display: flex;
@@ -225,25 +266,26 @@
 .latest-card:hover .latest-card-overlay {
   background: linear-gradient(
     to top,
-    rgba(5, 8, 20, 0.98) 0%,
-    rgba(5, 8, 20, 0.7) 50%,
-    rgba(5, 8, 20, 0.2) 100%
+    rgba(44, 62, 80, 0.95) 0%,
+    rgba(44, 62, 80, 0.6) 50%,
+    rgba(44, 62, 80, 0.2) 100%
   );
 }
 
-.latest-card-country {
+.latest-card-province {
   font-family: var(--font-ui);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--van-gogh-gold);
+  color: var(--sunshine-gold);
   margin-bottom: 0.25rem;
 }
 
 .latest-card-name {
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.6rem;
+  font-weight: 700;
   color: var(--text-white);
   margin-bottom: 0.5rem;
 }
@@ -251,13 +293,13 @@
 .latest-card-date {
   font-family: var(--font-ui);
   font-size: 0.85rem;
-  color: var(--text-gray);
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 0.5rem;
 }
 
 .latest-card-summary {
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1.6;
   opacity: 0;
   transform: translateY(10px);
@@ -269,23 +311,21 @@
   transform: translateY(0);
 }
 
-/* 图片占位符 */
 .latest-card-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--starry-night-light), var(--iris-purple));
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--van-gogh-gold);
   font-family: var(--font-display);
   font-size: 3rem;
+  color: var(--text-white);
 }
 
 /* ---- 精选照片 ---- */
 .featured-section {
   padding: var(--space-xl) 0;
-  background: linear-gradient(180deg, transparent, rgba(107, 76, 127, 0.05), transparent);
+  background: linear-gradient(180deg, transparent, rgba(124, 179, 66, 0.03), transparent);
 }
 
 .featured-grid {
@@ -301,6 +341,14 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-normal);
+}
+
+.featured-item:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-medium);
+  z-index: 10;
 }
 
 .featured-item:nth-child(1) {
@@ -324,23 +372,30 @@
   grid-column: span 2;
 }
 
-.featured-item img {
+.featured-item img,
+.featured-placeholder {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: all var(--transition-slow);
-  filter: saturate(0.9) contrast(1.05);
 }
 
 .featured-item:hover img {
   transform: scale(1.05);
-  filter: saturate(1.1) contrast(1.1);
+}
+
+.featured-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--sky-blue-dark), var(--sky-blue));
+  color: var(--text-muted);
 }
 
 .featured-item-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(5, 8, 20, 0.8), transparent);
+  background: linear-gradient(to top, rgba(44, 62, 80, 0.8), transparent);
   display: flex;
   align-items: flex-end;
   padding: var(--space-md);
@@ -364,28 +419,17 @@
 .featured-item-location {
   font-family: var(--font-ui);
   font-size: 0.8rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--van-gogh-gold);
+  color: var(--sunshine-gold);
 }
 
 .featured-item-title {
   font-family: var(--font-display);
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-white);
-}
-
-/* 图片占位符 */
-.featured-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--starry-night-light), var(--starry-night));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-size: 2rem;
 }
 
 /* CTA */
@@ -397,7 +441,7 @@
 /* ---- 滚动显示动画 ---- */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(40px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
@@ -413,55 +457,21 @@
     grid-template-rows: repeat(3, 200px);
   }
   
-  .featured-item:nth-child(1) {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-  
-  .featured-item:nth-child(2) {
-    grid-column: span 2;
-  }
-  
-  .featured-item:nth-child(3) {
-    grid-column: span 2;
-  }
-  
-  .featured-item:nth-child(4) {
-    grid-column: span 2;
-  }
-  
-  .featured-item:nth-child(5) {
-    grid-column: span 2;
-  }
+  .featured-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .featured-item:nth-child(2) { grid-column: span 2; }
+  .featured-item:nth-child(3) { grid-column: span 2; }
+  .featured-item:nth-child(4) { grid-column: span 2; }
+  .featured-item:nth-child(5) { grid-column: span 2; }
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding: var(--space-md);
-  }
+  .hero { padding: var(--space-md); }
+  .hero-title { font-size: 3rem; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .hero-actions .btn { width: 100%; max-width: 280px; }
   
-  .hero-title {
-    font-size: 3rem;
-  }
-  
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .hero-actions .btn {
-    width: 100%;
-    max-width: 280px;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-    max-width: 300px;
-  }
-  
-  .latest-grid {
-    grid-template-columns: 1fr;
-  }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+  .latest-grid { grid-template-columns: 1fr; }
   
   .featured-grid {
     grid-template-columns: 1fr;

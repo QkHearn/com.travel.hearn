@@ -1,56 +1,40 @@
 /**
  * ============================================
- * 关于页逻辑
+ * 关于页逻辑 2.0 - 清新自然风格
  * ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
   renderContinentChart();
-  renderMonthChart();
+  renderProvinceChart();
   setupRevealAnimation();
 });
 
-/**
- * 渲染大洲分布图表
- */
 function renderContinentChart() {
   const container = document.getElementById('continent-chart');
   if (!container) return;
   
-  // 简单的国家到大洲映射
-  const continentMap = {
-    '法国': '欧洲',
-    '希腊': '欧洲',
-    '冰岛': '欧洲',
-    '日本': '亚洲',
-    '摩洛哥': '非洲',
-    '新西兰': '大洋洲'
-  };
+  const provinceStats = getProvinceStats();
+  const provinces = Object.entries(provinceStats).sort((a, b) => b[1] - a[1]);
+  const maxCount = Math.max(...provinces.map(p => p[1]));
+  const total = travelData.destinations.length;
   
-  const continentCounts = {};
-  travelData.destinations.forEach(dest => {
-    const continent = continentMap[dest.country] || '其他';
-    continentCounts[continent] = (continentCounts[continent] || 0) + 1;
-  });
-  
-  const continents = Object.entries(continentCounts).sort((a, b) => b[1] - a[1]);
-  const maxCount = Math.max(...continents.map(c => c[1]));
-  
-  const barHeight = 30;
-  const barGap = 15;
-  const chartHeight = continents.length * (barHeight + barGap);
-  const chartWidth = 300;
+  const barHeight = 32;
+  const barGap = 16;
+  const chartHeight = provinces.length * (barHeight + barGap);
+  const chartWidth = 320;
   
   let svg = `<svg class="chart-svg" viewBox="0 0 ${chartWidth} ${chartHeight}" xmlns="http://www.w3.org/2000/svg">`;
+  svg += `<defs><linearGradient id="barGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#7CB342"/><stop offset="100%" style="stop-color:#4FC3F7"/></linearGradient></defs>`;
   
-  continents.forEach(([name, count], index) => {
+  provinces.forEach(([name, count], index) => {
     const y = index * (barHeight + barGap);
-    const barWidth = (count / maxCount) * (chartWidth - 80);
-    const percentage = Math.round((count / travelData.destinations.length) * 100);
+    const barWidth = (count / maxCount) * (chartWidth - 100);
+    const percentage = Math.round((count / total) * 100);
     
     svg += `
-      <rect class="chart-bar" x="0" y="${y}" width="${barWidth}" height="${barHeight}" rx="4"/>
-      <text class="chart-label" x="${chartWidth - 40}" y="${y + barHeight / 2 + 4}">${name}</text>
-      <text class="chart-value" x="${barWidth + 8}" y="${y + barHeight / 2 + 4}">${count} (${percentage}%)</text>
+      <rect class="chart-bar" x="0" y="${y}" width="${barWidth}" height="${barHeight}" rx="6"/>
+      <text class="chart-label" x="${chartWidth - 48}" y="${y + barHeight / 2 + 5}">${name}</text>
+      <text class="chart-value" x="${barWidth + 10}" y="${y + barHeight / 2 + 5}">${count} (${percentage}%)</text>
     `;
   });
   
@@ -58,11 +42,8 @@ function renderContinentChart() {
   container.innerHTML = svg;
 }
 
-/**
- * 渲染月份分布图表
- */
-function renderMonthChart() {
-  const container = document.getElementById('month-chart');
+function renderProvinceChart() {
+  const container = document.getElementById('province-chart');
   if (!container) return;
   
   const monthCounts = new Array(12).fill(0);
@@ -74,24 +55,25 @@ function renderMonthChart() {
   });
   
   const maxCount = Math.max(...monthCounts);
-  const chartWidth = 300;
+  const chartWidth = 320;
   const chartHeight = 200;
-  const barWidth = chartWidth / 12 - 4;
+  const barWidth = chartWidth / 12 - 6;
   
   let svg = `<svg class="chart-svg" viewBox="0 0 ${chartWidth} ${chartHeight + 30}" xmlns="http://www.w3.org/2000/svg">`;
+  svg += `<defs><linearGradient id="monthGradient" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#4FC3F7"/><stop offset="100%" style="stop-color:#7CB342"/></linearGradient></defs>`;
   
   monthCounts.forEach((count, index) => {
     const barHeight = maxCount > 0 ? (count / maxCount) * chartHeight : 0;
-    const x = index * (chartWidth / 12) + 2;
+    const x = index * (chartWidth / 12) + 3;
     const y = chartHeight - barHeight;
     
     svg += `
-      <rect class="chart-bar" x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" rx="2"/>
-      <text class="chart-label" x="${x + barWidth / 2}" y="${chartHeight + 20}">${monthNames[index]}</text>
+      <rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" rx="4" fill="url(#monthGradient)" opacity="0.85"/>
+      <text class="chart-label" x="${x + barWidth / 2}" y="${chartHeight + 22}">${monthNames[index]}</text>
     `;
     
     if (count > 0) {
-      svg += `<text class="chart-value" x="${x + barWidth / 2}" y="${y - 5}">${count}</text>`;
+      svg += `<text class="chart-value" x="${x + barWidth / 2}" y="${y - 6}">${count}</text>`;
     }
   });
   
@@ -99,9 +81,6 @@ function renderMonthChart() {
   container.innerHTML = svg;
 }
 
-/**
- * 设置滚动显示动画
- */
 function setupRevealAnimation() {
   const revealElements = document.querySelectorAll('[data-reveal]:not(.revealed)');
   const observer = new IntersectionObserver((entries) => {

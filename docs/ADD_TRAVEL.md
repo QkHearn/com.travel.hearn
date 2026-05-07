@@ -1,245 +1,160 @@
-# Hearn & 瑾怡 旅行足迹 - 维护指南
+# Hearn & 瑾怡 旅行足迹 2.0 - 使用指南
 
-## 快速开始
+## 全新升级
 
-这是一个纯静态网站，无需服务器或数据库。所有旅行数据存储在 `js/data.js` 文件中，直接编辑即可更新网站内容。
+2.0 版本带来了全新设计：
+- **清新自然风格**：阿尔卑斯少女般的蓝天白云、草地阳光
+- **编辑页面**：5分钟完成一个地点记录，地图选点 + 照片上传 + AI写故事
+- **聚合统计**：自动按省/市层级统计（如四川 = 成都3个 + 雅安2个）
+- **AI 故事生成**：Kimi 根据照片自动创作旅行故事
+- **GitHub 一键提交**：无需手动编辑代码文件
 
-## 添加新的旅行目的地
+---
+
+## 快速开始：5分钟添加一个新地点
+
+### 第一步：打开编辑页面
+在浏览器中打开 `admin.html`（如 `http://localhost:8000/admin.html`）
+
+### 第二步：配置 GitHub
+1. 在 GitHub 生成 Fine-grained personal access token：
+   - Settings → Developer settings → Personal access tokens → Fine-grained tokens
+   - 选择你的仓库，权限勾选 **Contents: Read and Write**
+2. 在编辑页面填入：
+   - **GitHub Token**: 刚才生成的 token
+   - **仓库地址**: `你的用户名/仓库名`（如 `hearn/travel-journal`）
+   - **分支**: `main`
+3. 点击 **测试连接**，显示绿色 ✓ 后点击 **下一步**
+
+### 第三步：地图选点
+1. 在地图上点击你要记录的位置，或在上方的搜索框输入地名搜索
+2. 系统会自动获取经纬度和省市区信息
+3. 点击 **下一步**
+
+### 第四步：填写信息
+- **地点名称**: 如 "锦里古街"
+- **日期**: 选择旅行日期范围
+- **标签**: 用逗号分隔，如 `古街, 美食, 文化, 夜景`
+- **一句话总结**: 描述这个地方的一句话
+- 省/市/区会自动填充，可手动修改
+- 点击 **下一步**
+
+### 第五步：上传照片
+1. 拖拽或点击上传照片（支持多选）
+2. 第一张自动设为封面
+3. 点击照片可设为封面，点击 ✕ 删除
+4. 点击 **下一步**
+
+### 第六步：写故事
+**方式 A - AI 生成（推荐）**：
+1. 配置 Kimi API Key（可选，首次需要）
+   - 访问 [platform.moonshot.cn](https://platform.moonshot.cn) 注册获取
+2. 点击 **AI 根据照片生成故事**
+3. 等待 10-20 秒，AI 会根据你的照片创作故事
+4. 可在文本框中修改
+
+**方式 B - 手动撰写**：
+- 直接在文本框中写下你的旅行故事
+
+点击 **下一步**
+
+### 第七步：提交
+预览无误后，点击 **提交到 GitHub**，等待进度条完成即可！
+
+大约 1-2 分钟后，网站会自动更新显示新添加的地点。
+
+---
+
+## 手动维护（备用方案）
+
+如果不需要编辑页面，也可以手动维护：
 
 ### 1. 准备照片
-
-将旅行照片放入对应的文件夹：
-
 ```
 images/travels/
-  └── {地点英文或拼音}/
-      ├── cover.jpg    # 封面图（必填，推荐 1200x800）
-      ├── 1.jpg        # 照片1
-      ├── 2.jpg        # 照片2
-      └── 3.jpg        # 更多照片...
+  └── {地点拼音}/
+      ├── cover.jpg    # 封面图（第一张自动作为封面）
+      ├── 1.jpg
+      ├── 2.jpg
+      └── 3.jpg
 ```
-
-**示例**：
-```
-images/travels/paris/
-  ├── cover.jpg
-  ├── 1.jpg
-  ├── 2.jpg
-  └── 3.jpg
-```
-
-**照片命名建议**：
-- 使用简短的英文或拼音作为文件夹名（不含空格，用连字符）
-- 照片格式：JPG 或 WebP（推荐 WebP，体积更小）
-- 封面图尺寸：1200x800 像素
-- 画廊照片：1200x800 或 800x1200 像素
-- 单张照片建议不超过 500KB
 
 ### 2. 编辑数据文件
-
-打开 `js/data.js`，在 `destinations` 数组中添加新的目的地对象：
-
-```javascript
-{
-  id: "唯一标识",           // 必填，英文，不含空格，如 "paris-2024"
-  name: "地点名称",         // 必填，中文，如 "巴黎"
-  country: "国家",          // 必填，中文，如 "法国"
-  lat: 48.8566,            // 必填，纬度，可在 Google Maps 获取
-  lng: 2.3522,             // 必填，经度，可在 Google Maps 获取
-  date: "2024-05-15",      // 必填，开始日期，格式 YYYY-MM-DD
-  endDate: "2024-05-20",   // 必填，结束日期，格式 YYYY-MM-DD
-  cover: "images/travels/paris/cover.jpg",  // 必填，封面图路径
-  photos: [                // 必填，照片数组
-    "images/travels/paris/1.jpg",
-    "images/travels/paris/2.jpg",
-    "images/travels/paris/3.jpg"
-  ],
-  tags: ["浪漫", "艺术", "美食"],  // 必填，标签数组（2-5个）
-  story: "这里是旅行故事...",      // 必填，旅行故事文字
-  summary: "一句话总结"            // 必填，短描述，用于卡片展示
-}
-```
-
-**完整示例**：
+打开 `js/data.js`，在 `destinations` 数组中添加：
 
 ```javascript
 {
-  id: "shanghai-2024",
-  name: "上海",
+  id: "chengdu-jinli-1234",
+  name: "锦里古街",
   country: "中国",
-  lat: 31.2304,
-  lng: 121.4737,
+  province: "四川",      // 用于聚合统计
+  city: "成都",          // 用于聚合统计
+  district: "武侯区",    // 可选
+  lat: 30.6456,
+  lng: 104.0494,
   date: "2024-10-01",
-  endDate: "2024-10-05",
-  cover: "images/travels/shanghai/cover.jpg",
+  endDate: "2024-10-02",
+  cover: "images/travels/chengdu-jinli-1234/cover.jpg",
   photos: [
-    "images/travels/shanghai/1.jpg",
-    "images/travels/shanghai/2.jpg",
-    "images/travels/shanghai/3.jpg",
-    "images/travels/shanghai/4.jpg"
+    "images/travels/chengdu-jinli-1234/1.jpg",
+    "images/travels/chengdu-jinli-1234/2.jpg",
+    "images/travels/chengdu-jinli-1234/3.jpg"
   ],
-  tags: ["都市", "美食", "夜景", "文化"],
-  story: "上海是一座充满魔力的城市。外滩的万国建筑在夜色中熠熠生辉，陆家嘴的摩天大楼直插云霄。我们在田子坊的小巷里寻找老上海的味道，在新天地感受时尚与历史的交融。城隍庙的小笼包让我们回味无穷，豫园的古典园林让我们流连忘返。这座城市的每一个角落，都在诉说着过去与未来的对话。",
-  summary: "魔都上海，感受东方明珠的繁华与魅力"
+  tags: ["古街", "美食", "文化", "夜景"],
+  story: "锦里的夜晚，红灯笼高高挂起...",
+  summary: "在锦里古街感受成都的热闹与烟火气"
 }
 ```
 
-### 3. 获取经纬度
+### 3. 部署
+推送到 GitHub 仓库即可自动更新。
 
-1. 打开 [Google Maps](https://maps.google.com)
-2. 搜索目的地
-3. 右键点击地图上的位置
-4. 选择第一串数字就是经纬度（格式：纬度, 经度）
+---
 
-或者使用在线工具：[LatLong.net](https://www.latlong.net/)
+## 技术说明
 
-### 4. 预览更改
+### 风格系统
+- 色彩：天空蓝 `#E8F4FD`、草地绿 `#7CB342`、海水蓝 `#4FC3F7`、阳光金 `#FFD54F`
+- 字体：霞鹜文楷（中文标题）+ Nunito（英文/UI）
+- 动画：飘动云朵 Canvas 背景、花瓣飘落、3D 卡片倾斜、滚动触发淡入
 
-由于这是静态网站，你可以直接在浏览器中打开 `index.html` 文件预览效果：
+### 数据结构
+| 字段 | 必填 | 说明 |
+|------|------|------|
+| id | ✓ | 唯一标识，英文/数字 |
+| name | ✓ | 地点名称 |
+| country | ✓ | 国家 |
+| province | | 省份，用于聚合统计 |
+| city | | 城市，用于聚合统计 |
+| district | | 区县，可选 |
+| lat/lng | ✓ | 经纬度 |
+| date | ✓ | 开始日期 YYYY-MM-DD |
+| endDate | | 结束日期 |
+| cover | ✓ | 封面图路径 |
+| photos | ✓ | 照片路径数组 |
+| tags | ✓ | 标签数组 |
+| story | ✓ | 旅行故事 |
+| summary | ✓ | 一句话总结 |
 
-```bash
-# 在项目根目录下，用 Python 启动一个简单的服务器
-python -m http.server 8000
+### API 配置
+- **GitHub Token**: 仅需 `Contents: Read and Write` 权限
+- **Kimi API**: 可选，用于 AI 故事生成，在 [platform.moonshot.cn](https://platform.moonshot.cn) 获取
 
-# 然后访问 http://localhost:8000
-```
-
-或者在 VS Code 中安装 "Live Server" 插件，右键点击 `index.html` 选择 "Open with Live Server"。
-
-### 5. 部署到 GitHub Pages
-
-#### 方式一：通过 Git 命令行
-
-```bash
-# 初始化 Git 仓库（如果还没有）
-git init
-
-# 添加所有文件
-git add .
-
-# 提交更改
-git commit -m "添加上海旅行记录"
-
-# 推送到 GitHub（需要先在 GitHub 创建仓库）
-git remote add origin https://github.com/你的用户名/仓库名.git
-git branch -M main
-git push -u origin main
-```
-
-#### 方式二：通过 GitHub 网页
-
-1. 在 GitHub 创建新仓库
-2. 点击 "Uploading an existing file"
-3. 拖拽所有文件到上传区域
-4. 提交更改
-
-#### 开启 GitHub Pages
-
-1. 进入仓库的 Settings 页面
-2. 左侧菜单选择 "Pages"
-3. Source 选择 "Deploy from a branch"
-4. Branch 选择 "main"，文件夹选择 "/ (root)"
-5. 点击 Save
-6. 等待几分钟后，网站会在 `https://你的用户名.github.io/仓库名` 上线
-
-## 修改现有内容
-
-### 修改旅行故事
-
-直接编辑 `js/data.js` 中对应目的地的 `story` 字段。
-
-### 修改照片
-
-1. 替换 `images/travels/{地点}/` 文件夹中的图片
-2. 如果新增或删除了照片，记得同步修改 `js/data.js` 中的 `photos` 数组
-
-### 修改个人信息
-
-编辑 `about.html` 文件中的文字内容。
-
-## 文件结构说明
-
-```
-/
-├── index.html          # 首页
-├── map.html            # 地图页
-├── gallery.html        # 相册页
-├── stories.html        # 故事页
-├── about.html          # 关于页
-├── css/                # 样式文件
-│   ├── base.css        # 基础样式和变量
-│   ├── components.css  # 通用组件（导航、按钮、卡片等）
-│   ├── home.css        # 首页样式
-│   ├── map.css         # 地图页样式
-│   ├── gallery.css     # 相册页样式
-│   ├── stories.css     # 故事页样式
-│   └── about.css       # 关于页样式
-├── js/                 # JavaScript 文件
-│   ├── data.js         # 旅行数据（你主要编辑的文件）
-│   ├── main.js         # 通用功能（星空动画、导航等）
-│   ├── home.js         # 首页逻辑
-│   ├── map.js          # 地图逻辑
-│   ├── gallery.js      # 相册逻辑
-│   ├── stories.js      # 故事逻辑
-│   ├── about.js        # 关于页逻辑
-│   └── utils.js        # 工具函数
-├── images/             # 图片文件夹
-│   ├── hero/           # 首页背景（可选）
-│   └── travels/        # 旅行照片（按地点分子文件夹）
-└── docs/               # 文档
-    └── ADD_TRAVEL.md   # 本文件
-```
-
-## 注意事项
-
-1. **不要修改 CSS 和 JS 文件名**，HTML 页面依赖这些文件名加载资源
-2. **保持 data.js 的格式正确**，特别是逗号和引号
-3. **id 字段必须唯一**，建议使用 "地点-年份" 的格式
-4. **照片路径要正确**，相对于网站根目录
-5. **日期格式严格使用 YYYY-MM-DD**
+---
 
 ## 常见问题
 
 **Q: 添加新地点后网站没有更新？**
-A: 浏览器可能缓存了旧的 data.js。按 Ctrl+F5（Windows）或 Cmd+Shift+R（Mac）强制刷新。
+A: GitHub Pages 有缓存，等待 1-2 分钟后强制刷新（Ctrl+F5 / Cmd+Shift+R）。
 
-**Q: 地图上的标记位置不准确？**
-A: 检查经纬度是否正确。注意：Google Maps 复制的格式是 "纬度, 经度"，data.js 中需要分别填入 `lat` 和 `lng`。
+**Q: GitHub 提交失败？**
+A: 检查 Token 是否有仓库写入权限，仓库名称格式是否为 `用户名/仓库名`。
 
-**Q: 照片显示不出来？**
-A: 检查照片路径是否正确，区分大小写。确认照片确实存在于对应的文件夹中。
+**Q: AI 生成故事失败？**
+A: 检查 Kimi API Key 是否正确，免费额度是否用完。也可手动撰写故事。
 
-**Q: 想修改网站颜色或字体？**
-A: 编辑 `css/base.css` 文件顶部的 CSS 变量。修改后所有页面会同步更新。
+**Q: 照片上传失败？**
+A: GitHub API 单文件限制 100MB，建议单张照片不超过 10MB。浏览器会自动压缩。
 
-## 高级定制
-
-### 修改网站颜色
-
-编辑 `css/base.css` 中的 CSS 变量：
-
-```css
-:root {
-  --starry-night: #0a0e27;      /* 主背景色 */
-  --van-gogh-gold: #d4a017;      /* 强调色 */
-  /* ... 其他变量 */
-}
-```
-
-### 修改字体
-
-在 `base.css` 中修改字体变量，并在 HTML `<head>` 中引入新的 Google Fonts。
-
-### 添加新页面
-
-1. 复制一个现有的 HTML 文件作为模板
-2. 修改页面标题和内容
-3. 在导航栏所有页面的 `<nav>` 中添加新链接
-4. 创建对应的 CSS 和 JS 文件
-
-## 技术支持
-
-如需帮助，可以：
-- 查看 GitHub Pages 官方文档：https://docs.github.com/pages
-- 学习 Git 基础：https://git-scm.com/doc
-- 了解 Leaflet 地图：https://leafletjs.com
+**Q: 如何修改已有地点？**
+A: 目前编辑页面只支持添加新地点。修改已有地点需要手动编辑 `js/data.js` 文件。
