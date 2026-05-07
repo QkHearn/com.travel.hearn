@@ -1,0 +1,424 @@
+/* ============================================
+   故事页样式
+   ============================================ */
+
+.stories-page {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+/* ---- 头部 ---- */
+.stories-header {
+  text-align: center;
+  padding: var(--space-lg) 0 var(--space-md);
+}
+
+.stories-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: var(--space-sm);
+}
+
+.stories-title span {
+  color: var(--van-gogh-gold);
+  font-style: italic;
+}
+
+.stories-subtitle {
+  font-size: 1rem;
+  color: var(--text-gray);
+}
+
+/* ---- 年份筛选 ---- */
+.year-filters {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+  padding: var(--space-sm) 0;
+}
+
+.year-filter {
+  padding: 0.5rem 1.25rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: var(--radius-xl);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-gray);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.year-filter:hover {
+  border-color: var(--van-gogh-gold);
+  color: var(--text-white);
+}
+
+.year-filter.active {
+  background: var(--van-gogh-gold);
+  border-color: var(--van-gogh-gold);
+  color: var(--starry-night-dark);
+}
+
+/* ---- 时间线 ---- */
+.timeline {
+  position: relative;
+  padding: var(--space-lg) 0;
+}
+
+/* 时间线轴线 */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--van-gogh-gold) 10%,
+    var(--van-gogh-gold) 90%,
+    transparent
+  );
+  transform: translateX(-50%);
+}
+
+/* 年份标题 */
+.timeline-year {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  position: relative;
+}
+
+.timeline-year-label {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--van-gogh-gold);
+  background: var(--starry-night);
+  padding: 0.5rem 1.5rem;
+  border: 2px solid var(--van-gogh-gold);
+  border-radius: var(--radius-xl);
+  position: relative;
+  z-index: 1;
+}
+
+/* 故事卡片 */
+.timeline-item {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: calc(50% + var(--space-lg));
+  position: relative;
+  margin-bottom: var(--space-lg);
+}
+
+.timeline-item:nth-child(even) {
+  justify-content: flex-start;
+  padding-right: 0;
+  padding-left: calc(50% + var(--space-lg));
+}
+
+/* 时间线节点 */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: var(--van-gogh-gold);
+  border: 3px solid var(--starry-night);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  box-shadow: 0 0 0 4px rgba(212, 160, 23, 0.2);
+}
+
+.timeline-item:hover::before {
+  transform: translateX(-50%) scale(1.3);
+  box-shadow: 0 0 0 8px rgba(212, 160, 23, 0.15);
+}
+
+/* 故事卡片内容 */
+.story-card {
+  max-width: 500px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.story-card:hover {
+  border-color: var(--van-gogh-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.story-card-image {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, var(--starry-night-light), var(--iris-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--van-gogh-gold);
+  font-family: var(--font-display);
+  font-size: 3rem;
+}
+
+.story-card-body {
+  padding: var(--space-md);
+}
+
+.story-card-date {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--van-gogh-gold);
+  margin-bottom: 0.5rem;
+}
+
+.story-card-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: 0.5rem;
+}
+
+.story-card-location {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  margin-bottom: var(--space-sm);
+}
+
+.story-card-excerpt {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+}
+
+.story-card-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-sm);
+}
+
+.story-card-readmore {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--van-gogh-gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: gap var(--transition-fast);
+}
+
+.story-card:hover .story-card-readmore {
+  gap: 0.5rem;
+}
+
+/* ---- 故事详情弹窗 ---- */
+.story-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(5, 8, 20, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+  overflow-y: auto;
+}
+
+.story-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.story-modal-content {
+  background: var(--starry-night);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.story-modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all var(--transition-fast);
+}
+
+.story-modal-close:hover {
+  background: var(--van-gogh-gold);
+  color: var(--starry-night-dark);
+}
+
+.story-modal-body {
+  padding: 0;
+}
+
+.story-modal-header {
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  text-align: center;
+}
+
+.story-modal-date {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--van-gogh-gold);
+  margin-bottom: var(--space-sm);
+}
+
+.story-modal-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: var(--space-xs);
+}
+
+.story-modal-location {
+  font-size: 1rem;
+  color: var(--text-gray);
+}
+
+.story-modal-cover {
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(135deg, var(--starry-night-light), var(--iris-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--van-gogh-gold);
+  font-family: var(--font-display);
+  font-size: 4rem;
+}
+
+.story-modal-text {
+  padding: var(--space-lg);
+  font-size: 1.1rem;
+  line-height: 2;
+  color: var(--text-gray);
+}
+
+.story-modal-text p {
+  margin-bottom: var(--space-md);
+}
+
+.story-modal-photos {
+  padding: 0 var(--space-lg) var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-sm);
+}
+
+.story-modal-photo {
+  aspect-ratio: 3/2;
+  background: linear-gradient(135deg, var(--starry-night-light), var(--starry-night));
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.story-modal-footer {
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.story-modal-nav {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.story-modal-nav button {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-gray);
+  transition: all var(--transition-fast);
+}
+
+.story-modal-nav button:hover {
+  border-color: var(--van-gogh-gold);
+  color: var(--text-white);
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+  .stories-page {
+    padding-top: 70px;
+  }
+  
+  .timeline::before {
+    left: 20px;
+  }
+  
+  .timeline-item,
+  .timeline-item:nth-child(even) {
+    justify-content: flex-start;
+    padding-left: 50px;
+    padding-right: 0;
+  }
+  
+  .timeline-item::before,
+  .timeline-item:nth-child(even)::before {
+    left: 20px;
+    transform: translateX(-50%);
+  }
+  
+  .story-card {
+    max-width: 100%;
+  }
+  
+  .story-modal {
+    padding: 0;
+  }
+  
+  .story-modal-content {
+    max-height: 100vh;
+    border-radius: 0;
+  }
+}

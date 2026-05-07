@@ -1,0 +1,318 @@
+/* ============================================
+   关于页样式
+   ============================================ */
+
+.about-page {
+  padding-top: 80px;
+}
+
+/* ---- Hero ---- */
+.about-hero {
+  padding: var(--space-xl) 0 var(--space-lg);
+  text-align: center;
+}
+
+.about-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: var(--space-md);
+}
+
+.about-title span {
+  color: var(--van-gogh-gold);
+  font-style: italic;
+}
+
+.about-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-gray);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ---- 情侣介绍 ---- */
+.about-couple {
+  padding: var(--space-lg) 0;
+}
+
+.couple-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.couple-card {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-normal);
+}
+
+.couple-card:hover {
+  border-color: var(--van-gogh-gold);
+  transform: translateY(-4px);
+}
+
+.couple-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--van-gogh-gold), var(--wheat-warm));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--starry-night-dark);
+}
+
+.couple-name {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: 0.5rem;
+}
+
+.couple-desc {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--van-gogh-gold);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-sm);
+}
+
+.couple-bio {
+  font-size: 0.95rem;
+  color: var(--text-gray);
+  line-height: 1.8;
+}
+
+.couple-ampersand {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-style: italic;
+  color: var(--van-gogh-gold);
+  opacity: 0.6;
+}
+
+/* ---- 旅行理念 ---- */
+.about-philosophy {
+  padding: var(--space-xl) 0;
+  background: linear-gradient(180deg, transparent, rgba(107, 76, 127, 0.05), transparent);
+}
+
+.philosophy-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.philosophy-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: var(--space-lg);
+}
+
+.philosophy-title span {
+  color: var(--van-gogh-gold);
+  font-style: italic;
+}
+
+.philosophy-quote {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--van-gogh-gold);
+  border-left: 3px solid var(--van-gogh-gold);
+  padding-left: var(--space-md);
+  margin-bottom: var(--space-lg);
+  text-align: left;
+}
+
+.philosophy-text {
+  font-size: 1.05rem;
+  color: var(--text-gray);
+  line-height: 2;
+  margin-bottom: var(--space-md);
+  text-align: left;
+}
+
+/* ---- 数据统计 ---- */
+.about-stats {
+  padding: var(--space-xl) 0;
+}
+
+.stats-visualization {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stat-chart {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  backdrop-filter: blur(10px);
+}
+
+.chart-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.chart-content {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG 图表样式 */
+.chart-svg {
+  width: 100%;
+  max-width: 300px;
+}
+
+.chart-bar {
+  fill: var(--van-gogh-gold);
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+.chart-bar:hover {
+  opacity: 1;
+}
+
+.chart-label {
+  fill: var(--text-gray);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  text-anchor: middle;
+}
+
+.chart-value {
+  fill: var(--text-white);
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  text-anchor: middle;
+}
+
+/* ---- 留言板 ---- */
+.about-guestbook {
+  padding: var(--space-xl) 0;
+  background: linear-gradient(180deg, transparent, rgba(18, 24, 58, 0.5), transparent);
+}
+
+.guestbook-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.guestbook-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: var(--space-md);
+}
+
+.guestbook-title span {
+  color: var(--van-gogh-gold);
+  font-style: italic;
+}
+
+.guestbook-text {
+  font-size: 1rem;
+  color: var(--text-gray);
+  margin-bottom: var(--space-lg);
+}
+
+.guestbook-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: var(--space-sm);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-white);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(10px);
+  transition: border-color var(--transition-fast);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--van-gogh-gold);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.guestbook-note {
+  margin-top: var(--space-md);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+  .about-page {
+    padding-top: 70px;
+  }
+  
+  .couple-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .couple-ampersand {
+    order: -1;
+    font-size: 2rem;
+  }
+  
+  .stats-visualization {
+    grid-template-columns: 1fr;
+  }
+  
+  .philosophy-quote {
+    font-size: 1.1rem;
+  }
+}

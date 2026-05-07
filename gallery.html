@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>照片画廊 | Hearn & 瑾怡</title>
+  <meta name="description" content="Hearn 和 瑾怡的旅行照片">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+  <canvas id="starry-canvas"></canvas>
+  
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Hearn <span>&</span> 瑾怡</a>
+      <button class="nav-toggle" aria-label="菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="map.html">地图</a>
+        <a href="gallery.html" class="active">相册</a>
+        <a href="stories.html">故事</a>
+        <a href="about.html">关于</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content gallery-page">
+    <div class="container">
+      <!-- 头部 -->
+      <div class="gallery-header">
+        <h1 class="gallery-title">照片<span>画廊</span></h1>
+        <p class="gallery-subtitle">用镜头定格每一个难忘瞬间</p>
+      </div>
+      
+      <!-- 筛选栏 -->
+      <div class="gallery-filters">
+        <div class="filter-group">
+          <label class="filter-label">地点</label>
+          <select class="filter-select" id="filter-dest">
+            <option value="">全部地点</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">年份</label>
+          <select class="filter-select" id="filter-year">
+            <option value="">全部年份</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">标签</label>
+          <select class="filter-select" id="filter-tag">
+            <option value="">全部标签</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- 照片数量 -->
+      <div class="gallery-count">
+        共 <strong id="photo-count">0</strong> 张照片
+      </div>
+      
+      <!-- 瀑布流 -->
+      <div class="masonry-grid" id="gallery-grid"></div>
+      
+      <!-- 分页 -->
+      <div class="pagination" id="gallery-pagination"></div>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="关闭">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="lightbox-prev" aria-label="上一张">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="lightbox-next" aria-label="下一张">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <div class="lightbox-info" id="lightbox-info"></div>
+  </div>
+
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Hearn & 瑾怡</div>
+        <p class="footer-text">用脚步丈量世界，用镜头记录美好</p>
+        <p class="footer-text" style="margin-top: 0.5rem; font-size: 0.8rem;">
+          © 2024 Hearn & 瑾怡 · 旅行足迹
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="返回顶部">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/gallery.js"></script>
+</body>
+</html>

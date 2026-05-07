@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旅行地图 | Hearn & 瑾怡</title>
+  <meta name="description" content="Hearn 和 瑾怡的旅行地图">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+  <canvas id="starry-canvas"></canvas>
+  
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Hearn <span>&</span> 瑾怡</a>
+      <button class="nav-toggle" aria-label="菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="map.html" class="active">地图</a>
+        <a href="gallery.html">相册</a>
+        <a href="stories.html">故事</a>
+        <a href="about.html">关于</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content map-page">
+    <!-- 地图头部 -->
+    <div class="map-header">
+      <div class="map-header-content">
+        <h1 class="map-title">旅行<span>地图</span></h1>
+        <p class="map-subtitle">点击标记查看每个目的地的故事</p>
+        <div class="map-stats">
+          <span class="map-stat">已到访 <strong id="map-count">0</strong> 个目的地</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 地图主体 -->
+    <div class="map-container">
+      <!-- 侧边栏 -->
+      <aside class="map-sidebar" id="map-sidebar">
+        <div class="sidebar-header">
+          <h2>目的地列表</h2>
+          <button class="sidebar-toggle" id="sidebar-toggle" aria-label="收起侧边栏">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+        </div>
+        
+        <div class="sidebar-filters">
+          <div class="filter-group">
+            <label class="filter-label">国家</label>
+            <select class="filter-select" id="filter-country">
+              <option value="">全部国家</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">年份</label>
+            <select class="filter-select" id="filter-year">
+              <option value="">全部年份</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="sidebar-list" id="sidebar-list"></div>
+      </aside>
+      
+      <!-- 地图 -->
+      <div class="map-wrapper" id="map"></div>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Hearn & 瑾怡</div>
+        <p class="footer-text">用脚步丈量世界，用镜头记录美好</p>
+        <p class="footer-text" style="margin-top: 0.5rem; font-size: 0.8rem;">
+          © 2024 Hearn & 瑾怡 · 旅行足迹
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="返回顶部">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/map.js"></script>
+</body>
+</html>
